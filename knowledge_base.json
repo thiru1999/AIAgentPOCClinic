@@ -1,0 +1,42 @@
+{
+  "scans": [
+    {
+      "id": "mri_brain",
+      "name": "MRI Brain",
+      "price": 3500,
+      "preparation": "Remove all metal objects. No fasting required unless specified."
+    },
+    {
+      "id": "mri_spine",
+      "name": "MRI Cine Scan / Spine",
+      "price": 4500,
+      "preparation": "Wear loose comfortable clothing."
+    },
+    {
+      "id": "ct_chest",
+      "name": "CT Scan Chest",
+      "price": 2500,
+      "preparation": "Fast for 4 hours prior to the scan."
+    },
+    {
+      "id": "xray_chest",
+      "name": "X-Ray Chest PA View",
+      "price": 500,
+      "preparation": "No specific preparation required."
+    },
+    {
+      "id": "full_body_checkup",
+      "name": "Master Health Checkup",
+      "price": 1500,
+      "preparation": "Fast for 10-12 hours (overnight fasting)."
+    }
+  ],
+  "slots": [
+    "09:00 AM",
+    "10:00 AM",
+    "11:30 AM",
+    "02:00 PM",
+    "04:00 PM",
+    "06:30 PM"
+  ]
+}
