@@ -52,28 +52,29 @@ def get_services():
     data = load_data()
     return {"scans": data["scans"]}
 
-@app.get("/check_availability")
-def check_availability(date: Optional[str] = None, time: Optional[str] = None):
-    if not date:
-        date = "today"
-    if not time:
-        time = "any time"
-
+@app.post("/check_availability")
+def check_availability(payload: dict = {}):
     return {
         "available": True,
-        "message": f"Slot {time} on {date} is available."
+        "message": "Yes madam, slot available. Book pannalama?"
     }
 
 @app.post("/book_appointment")
-def book_appointment(appointment: Appointment):
-    """Books an appointment and notifies the dashboard."""
-    logger.info(f"Booking received: {appointment}")
-    
-    # Enrich with timestamp
-    appointment.booked_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    appointments_db.insert(0, appointment) # Add to top of list
-    
-    return {"status": "success", "booking_id": f"bk_{len(appointments_db)}", "message": "Booking Confirmed"}
+def book_appointment(payload: dict):
+    dummy_record = {
+        "patient_name": payload.get("patient_name", "Workflow Test"),
+        "scan_type": payload.get("scan_type", "MRI"),
+        "appointment_date": payload.get("date", "today"),
+        "appointment_time": payload.get("time", "any time"),
+        "booked_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    }
+
+    appointments_db.insert(0, dummy_record)
+
+    return {
+        "status": "success",
+        "message": "Booking done"
+    }
 
 # --- Technician Dashboard Endpoints ---
 
@@ -81,4 +82,5 @@ def book_appointment(appointment: Appointment):
 def get_appointments():
     """Returns all booked appointments for the dashboard."""
     return appointments_db
+
 
