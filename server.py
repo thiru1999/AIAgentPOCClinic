@@ -53,10 +53,16 @@ def get_services():
     return {"scans": data["scans"]}
 
 @app.get("/check_availability")
-def check_availability(date: str, time: str):
-    """Checks if a slot is available (mock logic)."""
-    # Mock Logic: All slots in future are available for POC
-    return {"available": True, "message": f"Slot at {time} on {date} is available."}
+def check_availability(date: Optional[str] = None, time: Optional[str] = None):
+    if not date:
+        date = "today"
+    if not time:
+        time = "any time"
+
+    return {
+        "available": True,
+        "message": f"Slot {time} on {date} is available."
+    }
 
 @app.post("/book_appointment")
 def book_appointment(appointment: Appointment):
@@ -75,3 +81,4 @@ def book_appointment(appointment: Appointment):
 def get_appointments():
     """Returns all booked appointments for the dashboard."""
     return appointments_db
+
